@@ -24,7 +24,7 @@ $(tests): %: ## Dynamic tasks
 		 -v `pwd`/bin/goss:/usr/local/bin/goss \
 		 -v `pwd`/tests:/goss \
 		 -w /goss \
-		 --cap-add `cut -d"_" -f2- <<< $* | tr a-z A-Z` \
+		 --cap-add $* \
 		 alpine \
 		 goss -g $*.yml \
 		 validate --max-concurrent 5 \
