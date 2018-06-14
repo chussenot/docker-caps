@@ -1,5 +1,5 @@
 GOSS_VERSION := 0.3.6
-tests := $(shell ls tests | sed -e 's/.yml//')
+caps := $(shell ls caps | sed -e 's/.yml//')
 
 .PHONY: help
 .DEFAULT_GOAL := test
@@ -16,19 +16,19 @@ bin/goss:
 	@chmod +x bin/goss
 
 test: ## Run all the tests
-	@make ${tests}
+	@make ${caps}
 
-$(tests): %: ## Dynamic tasks
+$(caps): %: ## Dynamic tasks
 	@echo "Start test for $*"
 	@docker run --rm -t \
 		 -v `pwd`/bin/goss:/usr/local/bin/goss \
-		 -v `pwd`/tests:/goss \
+		 -v `pwd`/caps:/goss \
 		 -w /goss \
-		 --cap-add $* \
+		 --cap-drop $* \
 		 alpine \
 		 goss -g $*.yml \
 		 validate --max-concurrent 5 \
 		 --format documentation
 
 list: ## List existing scenarii.
-	@echo ${tests}
+	@echo ${caps}

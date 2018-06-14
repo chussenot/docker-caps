@@ -1,3 +1,0 @@
-mount:
-  /goss:
-    exists: true

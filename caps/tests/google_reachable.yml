@@ -1,0 +1,4 @@
+addr:
+  tcp://www.google.com:80:
+    reachable: true
+    timeout: 500
