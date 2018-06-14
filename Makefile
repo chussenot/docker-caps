@@ -15,7 +15,7 @@ bin/goss:
 		https://github.com/aelsabbahy/goss/releases/download/v${GOSS_VERSION}/goss-linux-amd64
 	@chmod +x bin/goss
 
-test: ## Run all the tests
+test: bin/goss ## Run all the tests
 	@make ${caps}
 
 $(caps): %: ## Dynamic tasks
