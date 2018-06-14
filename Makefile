@@ -13,10 +13,11 @@ bin/goss:
 	@chmod +x bin/goss
 
 test: bin/goss
-	@rm -rf tests
+	@rm -rf tests/vendor
 	@docker run --rm -t \
 		 -v `pwd`/bin/goss:/usr/local/bin/goss \
 		 -v `pwd`/tests:/goss \
 		 -w /goss \
 		 alpine \
-		 goss -h
+		 goss -g gossfile.yml \
+		 validate --max-concurrent 4 --format documentation

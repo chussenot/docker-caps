@@ -10,16 +10,9 @@ cap_audit_write cap_audit_control cap_setfcap cap_mac_override
 cap_mac_admin cap_syslog cap_wake_alarm cap_block_suspend cap_audit_read+eip}
 
 `mkdir -p tests`
-caps.each do |cap|
-  File.open("tests/#{cap}.yml", 'w') { |file| file.write("gossfile:\n   os_version.yaml: {}") }
-  `mkdir -p tests/#{cap}`
-  File.open("tests/#{cap}/os_version.yml", 'w') do |file|
-    os_version=<<-os_version
-command:
-  "cat /proc/version":
-    exit-status: 0
-    timeout: 120000
-    os_version
-    file.write(os_version)
+gossfile = File.open("tests/gossfile.yml", 'w') do |gossfile|
+  caps.each do |cap|
+    gossfile.write("\n   #{cap}.yml: {}")
+    File.open("tests/#{cap}.yml", 'w') {|f| f.write("")}
   end
 end
