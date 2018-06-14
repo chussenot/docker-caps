@@ -11,3 +11,12 @@ bin/goss:
 	@curl -o bin/goss -L \
 		https://github.com/aelsabbahy/goss/releases/download/v$\{GOSS_VERSION}/goss-linux-amd64
 	@chmod +x bin/goss
+
+test: bin/goss
+	@rm -rf tests
+	@docker run --rm -t \
+		 -v `pwd`/bin/goss:/usr/local/bin/goss \
+		 -v `pwd`/tests:/goss \
+		 -w /goss \
+		 alpine \
+		 goss -h
