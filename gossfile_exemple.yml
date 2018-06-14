@@ -1,0 +1,23 @@
+mount:
+  /goss:
+    exists: true
+interface:
+  eth0:
+    exists: true
+    addrs:
+    - 172.17.0.2/16
+user:
+  nobody:
+    exists: true
+    shell: /sbin/nologin
+command:
+  cat /proc/version:
+    exit-status: 0
+    stdout:
+    - /Linux/
+    stderr: []
+    timeout: 10000 # in milliseconds
+kernel-param:
+  kernel.ostype:
+    # required attributes
+    value: Linux
