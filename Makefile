@@ -12,7 +12,7 @@ help: ## Show this help.
 bin/goss:
 	@mkdir -p bin
 	@curl -o bin/goss -L \
-		https://github.com/aelsabbahy/goss/releases/download/v$\{GOSS_VERSION}/goss-linux-amd64
+		https://github.com/aelsabbahy/goss/releases/download/v${GOSS_VERSION}/goss-linux-amd64
 	@chmod +x bin/goss
 
 test: ## Run all the tests
