@@ -1,0 +1,9 @@
+falco-event-generator:
+  command:
+    - /usr/local/bin/event_generator
+  container_name: falco-event-generator
+  environment:
+    - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+  hostname: 5f33b6a17536
+  image: sysdig/falco-event-generator
+  ipc: shareable

@@ -15,7 +15,7 @@ bin/goss:
 		https://github.com/aelsabbahy/goss/releases/download/v${GOSS_VERSION}/goss-linux-amd64
 	@chmod +x bin/goss
 
-test: bin/goss ## Run all the tests
+test: bin/goss falco-event-generator ## Run all the tests
 	@make ${caps}
 
 $(caps): %: ## Dynamic tasks
@@ -32,3 +32,8 @@ $(caps): %: ## Dynamic tasks
 
 list: ## List existing scenarii.
 	@echo ${caps}
+
+falco-event-generator:  ## Run the falco event generator
+	docker-compose -f falco-event-generator.yml up -d
+	sleep 10 && docker kill falco-event-generator
+	docker rm falco-event-generator
