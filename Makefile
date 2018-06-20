@@ -23,6 +23,7 @@ $(caps): %: ## Dynamic tasks
 	@docker run --rm -t \
 		 -v `pwd`/bin/goss:/usr/local/bin/goss \
 		 -v `pwd`/caps:/goss \
+		 -v `pwd`/tests:/goss/tests \
 		 -w /goss \
 		 --cap-drop $* \
 		 alpine \
