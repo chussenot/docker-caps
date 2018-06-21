@@ -1,11 +1,20 @@
 #!/usr/bin/env sh
 
-docker run -i -t -v /var/run/docker.sock:/host/var/run/docker.sock \
+mkdir /etc/falco
+cd /etc/falco
+touch /var/log/falco_events.log
+apt-get install linux-headers-$(uname -r)
+lsmod | grep falco
+
+docker run -i -t  --name falco --privileged \
+  -v /var/run/docker.sock:/host/var/run/docker.sock \
   -v /dev:/host/dev -v /proc:/host/proc:ro -v /boot:/host/boot:ro \
   -v /lib/modules:/host/lib/modules:ro -v /usr:/host/usr:ro \
+  -v falco_rules.yaml:/etc/falco/falco_rules.yaml \
+  -v falco.yaml:/etc/falco.yaml \
+  -v /var/log/falco_events.log:/var/log/falco_events.log \
   sysdig/falco \
   falco -d -o json_output=true \
     -o program_output.enabled=true \
     -o program_output.program=jq '{text: .output}' \
    | curl -d @- -X POST https://hooks.slack.com/services/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
-  
