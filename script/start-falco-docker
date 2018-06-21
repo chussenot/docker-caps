@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 mkdir -p /etc/falco
-cp falco/*.yml /etc/falco
+cp falco/*.yaml /etc/falco
 cd /etc/falco
 
 touch /var/log/falco_events.log
