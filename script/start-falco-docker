@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
 
 mkdir -p /etc/falco
-cp falco.yml /etc/falco
-cp falco_rules.yml /etc/falco
+cp falco/*.yml /etc/falco
 cd /etc/falco
+
 touch /var/log/falco_events.log
 apt-get install linux-headers-$(uname -r)
 lsmod | grep falco
