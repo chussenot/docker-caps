@@ -1,7 +1,7 @@
 sudo: required
 language: ruby
 before_install:
-  - script/start-falco-docker
+  - sudo script/start-falco-docker
 services:
   - docker
 script:
