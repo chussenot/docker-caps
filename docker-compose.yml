@@ -1,0 +1,18 @@
+version: '2'
+services:
+  falco:
+    container_name: falco
+    image: sysdig/falco
+    privileged: true
+    stdin_open: true
+    tty: true
+    volumes:
+      - /dev:/host/dev
+      - /boot:/host/boot:ro
+      - /lib/modules:/host/lib/modules:ro
+      - /usr:/host/usr:ro
+      - /var/log/falco_events.log:/var/log/falco_events.log
+      - /etc/falco/falco_rules.yaml:/etc/falco/falco_rules.yaml
+      - /etc/falco/falco.yaml:/etc/falco.yaml
+      - /var/run/docker.sock:/host/var/run/docker.sock
+      - /proc:/host/proc:ro
