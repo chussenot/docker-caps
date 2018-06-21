@@ -1,9 +1,9 @@
 sudo: required
-
 language: ruby
-
+before_install:
+  - curl -s https://s3.amazonaws.com/download.draios.com/stable/install-falco | sudo bash
+  - falco -h
 services:
   - docker
-
 script:
 - make test
