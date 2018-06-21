@@ -1,7 +1,6 @@
 Docker Capabilities & Seccomp
 =============================
 
-This project will help to add a understanding of security in docker.   
 The main tests use the [Goss](https://github.com/aelsabbahy/goss) project.
 
 Auditing
