@@ -1,0 +1,4 @@
+event-generator:
+  container_name: event-generator
+  image: chussenot/event-generator:latest
+  ipc: shareable

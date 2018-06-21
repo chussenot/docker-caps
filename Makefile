@@ -1,5 +1,6 @@
 GOSS_VERSION := 0.3.6
 caps := $(shell ls caps | sed -e 's/.yml//')
+IMAGE = chussenot/event-generator
 
 .PHONY: help
 .DEFAULT_GOAL := test
@@ -15,10 +16,10 @@ bin/goss:
 		https://github.com/aelsabbahy/goss/releases/download/v${GOSS_VERSION}/goss-linux-amd64
 	@chmod +x bin/goss
 
-test: bin/goss falco-event-generator ## Run all the tests
+test: bin/goss build-event-generator-image run-event-generator ## Run all the tests
 	@make ${caps}
 
-$(caps): %: ## Dynamic tasks
+$(caps): %: build-event-generator-image ## Dynamic tasks
 	@echo "Start test for $*"
 	@docker run --rm -t \
 		 -v `pwd`/bin/goss:/usr/local/bin/goss \
@@ -26,7 +27,7 @@ $(caps): %: ## Dynamic tasks
 		 -v `pwd`/tests:/goss/tests \
 		 -w /goss \
 		 --cap-drop $* \
-		 alpine \
+		 $(IMAGE) \
 		 goss -g $*.yml \
 		 validate --max-concurrent 5 \
 		 --format documentation
@@ -34,7 +35,8 @@ $(caps): %: ## Dynamic tasks
 list: ## List existing scenarii.
 	@echo ${caps}
 
-falco-event-generator:  ## Run the falco event generator
-	docker-compose -f falco-event-generator.yml up -d
-	sleep 10 && docker kill falco-event-generator
-	docker rm falco-event-generator
+build-event-generator-image:
+	@docker build -t $(IMAGE):latest docker/event-generator
+
+run-event-generator: ## Run the falco event generator
+	@docker-compose -f event-generator.yml up --remove-orphans
