@@ -1,9 +1,7 @@
 sudo: required
 language: ruby
 before_install:
-  - sudo apt-get install -y jq
-  - curl -s https://s3.amazonaws.com/download.draios.com/stable/install-falco | sudo bash
-  - script/start-falco
+  - script/start-falco-docker
 services:
   - docker
 script:
