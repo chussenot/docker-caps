@@ -13,7 +13,7 @@ docker run -d --name falco --privileged \
   -v /dev:/host/dev -v /proc:/host/proc:ro -v /boot:/host/boot:ro \
   -v /lib/modules:/host/lib/modules:ro -v /usr:/host/usr:ro \
   -v /etc/falco/falco_rules.yaml:/etc/falco/falco_rules.yaml \
-  -v /etc/falco/falco.yaml:/etc/falco.yaml \
+  -v /etc/falco/falco.yaml:/etc/falco/falco.yaml \
   -v /var/log/falco_events.log:/var/log/falco_events.log \
   sysdig/falco \
   falco
